@@ -8,7 +8,7 @@ import { z } from "zod";
 // Reusable base schemas for common fields
 export const idSchema = z.number().int().positive();
 export const slugSchema = z.string().min(1).max(255).regex(/^[a-z0-9-]+$/, 'Invalid slug format');
-export const titleSchema = z.string().min(1, 'Title is required').max(255, 'Title too long');
+export const titleSchema = z.string().min(5, 'Title must be at least 5 characters').max(255, 'Title too long');
 export const contentSchema = z.string().min(1, 'Content is required');
 export const descriptionSchema = z.string().max(500, 'Description too long').optional();
 

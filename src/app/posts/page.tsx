@@ -65,7 +65,7 @@ export default function PostsPage() {
           <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">All Posts</h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-700 mt-2">
             Discover amazing stories and insights from our community
           </p>
           
@@ -93,7 +93,7 @@ export default function PostsPage() {
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-md border border-gray-300 text-gray-500 hover:text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-md border border-gray-300 text-gray-700 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -117,7 +117,7 @@ export default function PostsPage() {
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-md border border-gray-300 text-gray-500 hover:text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-md border border-gray-300 text-gray-700 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
@@ -126,7 +126,7 @@ export default function PostsPage() {
           </>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-700 text-lg">
               {searchQuery || selectedCategoryId || showPublishedOnly
                 ? "No posts found matching your filters."
                 : "No posts available yet."}

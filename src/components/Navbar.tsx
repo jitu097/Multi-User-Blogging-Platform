@@ -91,7 +91,7 @@ export function Navbar({ className }: NavbarProps) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200"
+                    className="flex items-center gap-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200"
                   >
                     <Icon className="w-4 h-4" />
                     <span>{item.label}</span>
@@ -100,7 +100,7 @@ export function Navbar({ className }: NavbarProps) {
               })}
               
               {/* Create Post Button */}
-              <Button asChild className="ml-4">
+                  <Button asChild className="ml-4">
                 <Link href="/posts/create" className="flex items-center gap-2">
                   <PlusCircle className="w-4 h-4" />
                   <span className="hidden lg:inline">New Post</span>
@@ -114,14 +114,14 @@ export function Navbar({ className }: NavbarProps) {
           <div className="flex items-center space-x-4">
             {/* Search Button - Desktop */}
             <SignedIn>
-              <Link href="/posts" className="hidden md:flex">
+                <Link href="/posts" className="hidden md:flex">
                 <Button
                   variant="ghost"
                   size="sm"
                   className="flex items-center"
                 >
                   <Search className="w-4 h-4" />
-                  <span className="ml-2 text-sm text-gray-500">Search...</span>
+                    <span className="ml-2 text-sm text-gray-700">Search...</span>
                 </Button>
               </Link>
             </SignedIn>
@@ -170,7 +170,7 @@ export function Navbar({ className }: NavbarProps) {
                 <Link
                   href="/posts"
                   onClick={closeMobileMenu}
-                  className="flex items-center gap-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-base font-medium transition-colors"
+                  className="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-base font-medium transition-colors"
                 >
                   <Search className="w-5 h-5" />
                   Search posts
@@ -184,7 +184,7 @@ export function Navbar({ className }: NavbarProps) {
                       key={item.href}
                       href={item.href}
                       onClick={closeMobileMenu}
-                      className="flex items-center gap-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-base font-medium transition-colors"
+                      className="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-md text-base font-medium transition-colors"
                     >
                       <Icon className="w-5 h-5" />
                       {item.label}

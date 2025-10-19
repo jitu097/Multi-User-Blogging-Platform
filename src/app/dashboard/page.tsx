@@ -63,7 +63,7 @@ export default function DashboardPage() {
                     <BookOpen className="w-6 h-6 text-blue-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Posts</p>
+                    <p className="text-sm font-medium text-gray-700">Total Posts</p>
                     <p className="text-2xl font-bold text-gray-900">
                       {posts ? posts.length : '-'}
                     </p>
@@ -77,7 +77,7 @@ export default function DashboardPage() {
                     <Users className="w-6 h-6 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Categories</p>
+                    <p className="text-sm font-medium text-gray-700">Categories</p>
                     <p className="text-2xl font-bold text-gray-900">
                       {categories.length}
                     </p>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
                     <TrendingUp className="w-6 h-6 text-purple-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Published</p>
+                    <p className="text-sm font-medium text-gray-700">Published</p>
                     <p className="text-2xl font-bold text-gray-900">
                       {posts ? posts.filter(post => post.published).length : '-'}
                     </p>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
                 {postsLoading ? (
                   <div className="flex items-center justify-center py-12">
                     <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                    <span className="ml-2 text-gray-600">Loading posts...</span>
+                    <span className="ml-2 text-gray-700">Loading posts...</span>
                   </div>
                 ) : posts && posts.length > 0 ? (
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -133,9 +133,9 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">No posts found</h3>
-                    <p className="text-gray-500 mb-6">
+                    <p className="text-gray-700 mb-6">
                       {searchQuery || selectedCategoryId || showPublishedOnly
                         ? "No posts match your current filters."
                         : "Get started by creating your first post!"}
@@ -162,8 +162,8 @@ export default function DashboardPage() {
                     className="block w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex items-center">
-                      <PlusCircle className="w-5 h-5 text-blue-600 mr-3" />
-                      <span className="font-medium">Create New Post</span>
+                      <PlusCircle className="w-5 h-5 text-gray-900 mr-3" />
+                      <span className="font-medium text-gray-900">Create New Post</span>
                     </div>
                   </Link>
                   <Link
@@ -171,8 +171,8 @@ export default function DashboardPage() {
                     className="block w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex items-center">
-                      <Users className="w-5 h-5 text-green-600 mr-3" />
-                      <span className="font-medium">Manage Categories</span>
+                      <Users className="w-5 h-5 text-gray-900 mr-3" />
+                      <span className="font-medium text-gray-900">Manage Categories</span>
                     </div>
                   </Link>
                 </div>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
 
               <div className="bg-white rounded-xl shadow-sm border p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-                <div className="text-gray-500">
+                <div className="text-gray-700">
                   <p>Activity tracking coming soon...</p>
                 </div>
               </div>

@@ -61,7 +61,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
       case 'critical':
         return 'text-red-800 bg-red-100 border-red-300';
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+  return 'text-gray-700 bg-gray-50 border-gray-200';
     }
   };
 
@@ -77,7 +77,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
             Something went wrong
           </h2>
           
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-700 mb-6">
             {error.userMessage}
           </p>
         </div>
@@ -120,7 +120,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
           <div className="mt-6">
             <button
               onClick={() => setDetailsVisible(!detailsVisible)}
-              className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-2"
+              className="text-sm text-gray-700 hover:text-gray-900 flex items-center gap-2"
             >
               <Bug className="w-4 h-4" />
               {detailsVisible ? 'Hide' : 'Show'} Error Details
@@ -131,12 +131,12 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
                 <div className="space-y-2">
                   <div>
                     <span className="font-medium text-gray-700">Error Code:</span>
-                    <span className="ml-2 text-gray-600 font-mono">{error.code}</span>
+                    <span className="ml-2 text-gray-700 font-mono">{error.code}</span>
                   </div>
                   
                   <div>
                     <span className="font-medium text-gray-700">Timestamp:</span>
-                    <span className="ml-2 text-gray-600">{error.timestamp.toLocaleString()}</span>
+                    <span className="ml-2 text-gray-700">{error.timestamp.toLocaleString()}</span>
                   </div>
                   
                   <div>
@@ -149,7 +149,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
                   {error.details && (
                     <div>
                       <span className="font-medium text-gray-700">Details:</span>
-                      <pre className="mt-1 text-xs text-gray-600 bg-white p-2 rounded border overflow-auto">
+                      <pre className="mt-1 text-xs text-gray-700 bg-white p-2 rounded border overflow-auto">
                         {JSON.stringify(error.details, null, 2)}
                       </pre>
                     </div>
@@ -345,7 +345,7 @@ export const NetworkError: React.FC<NetworkErrorProps> = ({
         {isOffline ? 'You\'re offline' : 'Connection Error'}
       </h3>
       
-      <p className="text-gray-600 mb-4">
+  <p className="text-gray-700 mb-4">
         {isOffline
           ? 'Please check your internet connection and try again.'
           : 'Unable to connect to the server. Please try again.'}
@@ -372,9 +372,9 @@ export const LoadingError: React.FC<LoadingErrorProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
-      <AlertTriangle className="w-12 h-12 text-gray-400 mb-4" />
+  <AlertTriangle className="w-12 h-12 text-gray-400 mb-4" />
       <h3 className="text-lg font-medium text-gray-900 mb-2">{message}</h3>
-      <p className="text-gray-500 mb-4">Something went wrong while loading this content.</p>
+  <p className="text-gray-700 mb-4">Something went wrong while loading this content.</p>
       
       {onRetry && (
         <Button onClick={onRetry} variant="outline" className="flex items-center gap-2">

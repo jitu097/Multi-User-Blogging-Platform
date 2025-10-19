@@ -44,7 +44,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4',
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4 text-gray-900',
       },
     },
   });
@@ -59,7 +59,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
   if (!editor) {
     return (
       <div className="border border-gray-300 rounded-md p-4 min-h-[300px] flex items-center justify-center">
-        <div className="text-gray-500">Loading editor...</div>
+        <div className="text-gray-700">Loading editor...</div>
       </div>
     );
   }
@@ -78,9 +78,9 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Bold"
           >
-            <Bold className="h-4 w-4" />
+            <Bold className="h-4 w-4 text-black" />
           </button>
-          
+
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -90,7 +90,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Italic"
           >
-            <Italic className="h-4 w-4" />
+            <Italic className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -102,7 +102,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Inline Code"
           >
-            <Code className="h-4 w-4" />
+            <Code className="h-4 w-4 text-black" />
           </button>
         </div>
 
@@ -117,7 +117,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Heading 1"
           >
-            <Heading1 className="h-4 w-4" />
+            <Heading1 className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -128,7 +128,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Heading 2"
           >
-            <Heading2 className="h-4 w-4" />
+            <Heading2 className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -139,7 +139,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Heading 3"
           >
-            <Heading3 className="h-4 w-4" />
+            <Heading3 className="h-4 w-4 text-black" />
           </button>
         </div>
 
@@ -154,7 +154,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Bullet List"
           >
-            <List className="h-4 w-4" />
+            <List className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -165,7 +165,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Numbered List"
           >
-            <ListOrdered className="h-4 w-4" />
+            <ListOrdered className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -176,7 +176,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             }`}
             title="Quote"
           >
-            <Quote className="h-4 w-4" />
+            <Quote className="h-4 w-4 text-black" />
           </button>
         </div>
 
@@ -190,7 +190,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             className="p-2 rounded hover:bg-gray-100 transition-colors disabled:opacity-50"
             title="Undo"
           >
-            <Undo className="h-4 w-4" />
+            <Undo className="h-4 w-4 text-black" />
           </button>
 
           <button
@@ -200,7 +200,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
             className="p-2 rounded hover:bg-gray-100 transition-colors disabled:opacity-50"
             title="Redo"
           >
-            <Redo className="h-4 w-4" />
+            <Redo className="h-4 w-4 text-black" />
           </button>
         </div>
 
@@ -212,14 +212,14 @@ export function RichTextEditor({ content, onChange, placeholder = "Start writing
           className="p-2 rounded hover:bg-gray-100 transition-colors"
           title="Horizontal Rule"
         >
-          <Minus className="h-4 w-4" />
+          <Minus className="h-4 w-4 text-black" />
         </button>
       </div>
 
       {/* Editor Content */}
-      <EditorContent 
-        editor={editor} 
-        className="min-h-[300px] max-w-none [&_.ProseMirror]:outline-none [&_.ProseMirror]:min-h-[300px]" 
+      <EditorContent
+        editor={editor}
+        className="min-h-[300px] max-w-none text-gray-900 [&_.ProseMirror]:outline-none [&_.ProseMirror]:min-h-[300px]"
       />
     </div>
   );

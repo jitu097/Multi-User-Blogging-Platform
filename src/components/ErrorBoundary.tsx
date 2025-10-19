@@ -121,7 +121,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <summary className="cursor-pointer font-medium text-gray-700">
                 Error Details (Development Only)
               </summary>
-              <pre className="mt-2 text-sm text-gray-600 overflow-auto">
+              <pre className="mt-2 text-sm text-gray-700 overflow-auto">
                 {this.state.error?.stack}
                 {'\n\nComponent Stack:'}
                 {this.state.errorInfo.componentStack}

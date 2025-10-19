@@ -25,3 +25,19 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Tiptap / ProseMirror content + placeholder styles */
+.ProseMirror {
+  color: #000000; /* force content text to black for readability */
+}
+
+/* The placeholder extension generally uses a data-placeholder attribute or .is-empty state depending on setup.
+   Target common placeholder selectors to make placeholder darker for visibility. */
+.ProseMirror:empty::before,
+.ProseMirror[data-placeholder]:before,
+.ProseMirror .placeholder {
+  color: #000000; /* placeholder text should be black */
+}
+
+/* Force placeholder to be readable on light backgrounds */
+.ProseMirror[contenteditable]:not([data-placeholder])::before { color: #000000; }

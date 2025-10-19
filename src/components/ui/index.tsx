@@ -23,7 +23,7 @@ export function LoadingSpinner({ size = 'md', text, className }: LoadingSpinnerP
   return (
     <div className={cn('flex items-center justify-center gap-2', className)}>
       <Loader2 className={cn('animate-spin text-blue-600', sizeClasses[size])} />
-      {text && <span className="text-gray-600">{text}</span>}
+  {text && <span className="text-gray-700">{text}</span>}
     </div>
   );
 }
@@ -88,11 +88,11 @@ export function EmptyState({ icon: Icon, title, description, action, className }
   return (
     <div className={cn('text-center py-12', className)}>
       {Icon && (
-        <Icon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+        <Icon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
       )}
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
       {description && (
-        <p className="text-gray-500 mb-6 max-w-md mx-auto">{description}</p>
+        <p className="text-gray-700 mb-6 max-w-md mx-auto">{description}</p>
       )}
       {action}
     </div>
@@ -219,7 +219,7 @@ export function Input({ label, error, helperText, className, ...props }: InputPr
         <p className="mt-1 text-sm text-red-600">{error}</p>
       )}
       {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+  <p className="mt-1 text-sm text-gray-700">{helperText}</p>
       )}
     </div>
   );
@@ -253,7 +253,7 @@ export function Textarea({ label, error, helperText, className, ...props }: Text
         <p className="mt-1 text-sm text-red-600">{error}</p>
       )}
       {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+  <p className="mt-1 text-sm text-gray-700">{helperText}</p>
       )}
     </div>
   );

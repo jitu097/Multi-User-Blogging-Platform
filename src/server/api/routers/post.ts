@@ -3,7 +3,7 @@ import { z } from "zod";
 import { eq, like, desc, and, sql } from "drizzle-orm";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "@/server/api/trpc";
 import { db } from "@/server/db";
-import { posts, categories, postCategories, type Post, type Category } from "@/lib/schema";
+import { posts, categories, postCategories, users, type Post, type Category } from "@/lib/schema";
 import { 
   createPostSchema, 
   updatePostSchema, 
@@ -202,8 +202,32 @@ export const postRouter = createTRPCRouter({
         
         // Note: ctx.userId is a Clerk ID (string), but our DB expects integer
         // In a real app, you'd have a users table that maps Clerk IDs to DB user IDs
-        // For now, we'll default to user 1 as a placeholder
-        const dbUserId = 1; // TODO: Map Clerk userId to database user ID
+        // For now, try to use a placeholder user (id=1). If it doesn't exist, create
+        // a minimal database user tied to the Clerk ID so FK constraints do not fail.
+        let dbUserId = 1; // default placeholder user id
+
+        // Ensure the placeholder user exists; if not, create a minimal one using the Clerk user id
+        const clerkId = ctx.userId as string | null;
+        const existingUser = await db.select().from(users).where(eq(users.id, dbUserId)).limit(1);
+        if (!existingUser || existingUser.length === 0) {
+          if (clerkId) {
+            // Create a minimal user record so the FK constraint is satisfied.
+            // Use a synthetic email derived from Clerk id to satisfy DB NOT NULL and email format.
+            const username = `clerk_${clerkId.slice(0, 8)}`;
+            const email = `${clerkId}@clerk.local`;
+            const [created] = await db.insert(users).values({
+              username,
+              email,
+            }).returning();
+            dbUserId = created.id;
+          } else {
+            // No clerk context and no placeholder user -> fail early with helpful message
+            throw new TRPCError({
+              code: 'BAD_REQUEST',
+              message: 'No local database user available. Please seed a user or sign in so a database user can be created.',
+            });
+          }
+        }
         
         const [newPost] = await db
           .insert(posts)
@@ -233,14 +257,45 @@ export const postRouter = createTRPCRouter({
           );
         }
 
-        return newPost;
-      } catch (error) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'Failed to create post',
-          cause: error,
-        });
-      }
+          return newPost;
+        } catch (error: any) {
+          // Log full error server-side for easier debugging in dev
+          console.error('post.create error:', error);
+          // Handle common Postgres/DB errors with clearer messages in dev/user-facing flows
+          // e.g., foreign key violations (author missing) or unique constraint failures (slug)
+          const code = error?.code || (error?.cause && error.cause.code) || null;
+
+          if (code === '23503') {
+            // foreign key violation - likely missing author or category
+            throw new TRPCError({
+              code: 'BAD_REQUEST',
+              message:
+                'Failed to create post: related record not found (author or category). Ensure your local DB has a matching user and categories.',
+              cause: error,
+            });
+          }
+
+          if (code === '23505') {
+            // unique violation (e.g. slug already exists)
+            throw new TRPCError({
+              code: 'CONFLICT',
+              message:
+                'Failed to create post: a post with the same slug already exists. Try changing the title.',
+              cause: error,
+            });
+          }
+
+          // Fallback - surface underlying message in development for easier debugging
+          const message = process.env.NODE_ENV === 'development' && error?.message
+            ? `Failed to create post: ${error.message}`
+            : 'Failed to create post';
+
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message,
+            cause: error,
+          });
+        }
     }),
 
   // Update post (requires authentication)

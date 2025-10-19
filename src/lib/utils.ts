@@ -12,12 +12,24 @@ export const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs));
 
 // Text utilities ---------------------------------------------------------
 /** Generate a URL-friendly slug from a string. */
-export const generateSlug = (text: string): string =>
-  text
+export const generateSlug = (text: string): string => {
+  const cleaned = String(text || "")
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+
+  // Ensure slug meets minimum length requirement for DB constraints
+  if (cleaned.length >= 3) return cleaned;
+
+  // Fallback: try to build a reasonable slug from alphanumerics or use a generic fallback
+  const compact = String(text || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const suffix = Math.random().toString(36).slice(2, 8);
+  const base = compact.length >= 1 ? compact : "post";
+  const slug = `${base}-${suffix}`.replace(/(^-|-$)/g, "");
+  // Guarantee max length and min length
+  return slug.slice(0, 250);
+};
 
 /** Truncate text to `maxLength` and append ellipsis when necessary. */
 export const truncateText = (text: string, maxLength = 150): string =>

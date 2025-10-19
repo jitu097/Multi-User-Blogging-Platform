@@ -35,25 +35,25 @@ export function FilterBar({ categories }: FilterBarProps) {
         <div className="flex items-center gap-4">
           {/* Search Input */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 w-4 h-4" />
             <input
               type="text"
               placeholder="Search posts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
           {/* Filter Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-900 transition-colors"
           >
-            <Filter className="w-4 h-4" />
+            <Filter className="w-4 h-4 text-white" />
             Filters
             {hasActiveFilters && (
-              <span className="bg-blue-500 text-white rounded-full w-2 h-2"></span>
+              <span className="bg-white text-black rounded-full w-2 h-2"></span>
             )}
           </button>
 
@@ -61,7 +61,7 @@ export function FilterBar({ categories }: FilterBarProps) {
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="text-gray-500 hover:text-gray-700 p-2"
+              className="text-gray-700 hover:text-gray-900 p-2"
               title="Clear all filters"
             >
               <X className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function FilterBar({ categories }: FilterBarProps) {
 
         {/* Extended Filters */}
         {showFilters && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-md">
+            <div className="mt-4 p-4 bg-gray-50 rounded-md text-gray-900">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Category Filter */}
               <div>

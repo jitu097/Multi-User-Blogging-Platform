@@ -8,6 +8,8 @@ import { RichTextEditor } from "@/components/RichTextEditor";
 import { api } from "@/trpc/react";
 import { Save, Eye, EyeOff, FileText, Clock } from "lucide-react";
 import { calculatePostStats, extractPreview, formatDate } from "@/lib/utils";
+import { Alert } from '@/components/ui';
+import { TRPCClientError } from '@trpc/client';
 
 export default function CreatePostPage() {
   const router = useRouter();
@@ -27,16 +29,57 @@ export default function CreatePostPage() {
     },
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
+    setErrorMessage(null);
+    try {
+      await createPost.mutateAsync({
+        title: title.trim(),
+        content: content.trim(),
+        published,
+        categoryIds: selectedCategories,
+      });
+    } catch (err: any) {
+      // Best-effort extraction of message and zod field errors from tRPC
+      let message = 'Failed to create post';
 
-    await createPost.mutateAsync({
-      title: title.trim(),
-      content: content.trim(),
-      published,
-      categoryIds: selectedCategories,
-    });
+      try {
+        // tRPC attaches a zodError object under err.data.zodError when validation fails
+        const trpcData = err?.data || err?.response?.data || null;
+
+        // Prefer structured zod field errors when available
+        const zod = trpcData?.zodError;
+        if (zod && zod.fieldErrors) {
+          const fields = zod.fieldErrors as Record<string, string[]>;
+          const parts: string[] = [];
+          for (const [field, arr] of Object.entries(fields)) {
+            if (arr && arr.length > 0) {
+              parts.push(`${field}: ${arr.join(', ')}`);
+            }
+          }
+          if (parts.length > 0) {
+            message = parts.join(' | ');
+          }
+        } else if (err instanceof TRPCClientError && err.message) {
+          message = err.message;
+        } else if (trpcData && typeof trpcData === 'string') {
+          message = trpcData;
+        } else if (err?.message) {
+          message = err.message;
+        }
+      } catch (parseErr) {
+        // If anything goes wrong while parsing, fall back to the generic message
+        console.error('Error parsing tRPC error in create page:', parseErr, err);
+      }
+
+      // Trim any long stack traces for UX
+      setErrorMessage(message);
+      // Re-throw for any outer handlers if needed (optional)
+      // throw err;
+    }
   };
 
   const handleCategoryToggle = (categoryId: number) => {
@@ -65,7 +108,7 @@ export default function CreatePostPage() {
               {/* Preview Toggle */}
               <div className="flex items-center gap-4">
                 {title && content && (
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-4 text-sm text-gray-700">
                     <div className="flex items-center gap-1">
                       <FileText className="w-4 h-4" />
                       <span>{calculatePostStats(content).wordCount} words</span>
@@ -97,7 +140,7 @@ export default function CreatePostPage() {
                 <div className="mb-6">
                   <h1 className="text-3xl font-bold text-gray-900 mb-4">{title}</h1>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-gray-700 mb-4">
                     <span>Preview • {formatDate(new Date())}</span>
                     <span>{calculatePostStats(content).readingTime} min read</span>
                     <span>{calculatePostStats(content).wordCount} words</span>
@@ -127,6 +170,9 @@ export default function CreatePostPage() {
           ) : (
             /* Edit Mode */
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            {errorMessage && (
+              <Alert variant="error" title="Unable to create post" description={errorMessage} />
+            )}
             {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -137,7 +183,7 @@ export default function CreatePostPage() {
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Enter post title..."
                 required
               />

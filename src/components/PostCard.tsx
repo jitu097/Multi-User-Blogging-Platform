@@ -27,7 +27,7 @@ export function PostCard({ post, showActions = false, variant = 'default', class
       <article>
         {/* Post Header */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap">
+          <div className="flex items-center gap-4 text-sm text-gray-700 flex-wrap">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               <time dateTime={post.createdAt.toISOString()}>
@@ -73,7 +73,7 @@ export function PostCard({ post, showActions = false, variant = 'default', class
         {/* Post Preview */}
         {variant !== 'compact' && (
           <div 
-            className="text-gray-600 mb-4 line-clamp-3 prose prose-sm max-w-none"
+            className="text-gray-700 mb-4 line-clamp-3 prose prose-sm max-w-none"
             dangerouslySetInnerHTML={{ 
               __html: extractPreview(post.content || '', variant === 'featured' ? 400 : 300)
             }}
@@ -83,7 +83,7 @@ export function PostCard({ post, showActions = false, variant = 'default', class
         {/* Categories */}
         {post.categories && post.categories.length > 0 && (
           <div className="flex items-center gap-2 flex-wrap mb-4">
-            <Tag className="w-4 h-4 text-gray-400" />
+            <Tag className="w-4 h-4 text-gray-600" />
             {post.categories.slice(0, 3).map((category) => (
               <Link
                 key={category.id}
@@ -92,9 +92,9 @@ export function PostCard({ post, showActions = false, variant = 'default', class
               >
                 {category.name}
               </Link>
-            ))}
+                ))}
             {post.categories.length > 3 && (
-              <span className="text-gray-500 text-xs">
+              <span className="text-gray-700 text-xs">
                 +{post.categories.length - 3} more
               </span>
             )}
@@ -134,7 +134,7 @@ export function PostCard({ post, showActions = false, variant = 'default', class
               </Button>
             </div>
             
-            <div className="flex items-center gap-1 text-sm text-gray-500">
+            <div className="flex items-center gap-1 text-sm text-gray-700">
               {post.published ? (
                 <div className="flex items-center gap-1 text-green-600">
                   <Eye className="w-4 h-4" />

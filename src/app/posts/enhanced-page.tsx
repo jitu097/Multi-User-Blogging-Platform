@@ -60,7 +60,7 @@ const Pagination = memo(({ currentPage, totalPages, onPageChange }: PaginationPr
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="p-2 rounded-md border border-gray-300 text-gray-500 hover:text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+  className="p-2 rounded-md border border-gray-300 text-gray-700 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Previous page"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -87,7 +87,7 @@ const Pagination = memo(({ currentPage, totalPages, onPageChange }: PaginationPr
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="p-2 rounded-md border border-gray-300 text-gray-500 hover:text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+  className="p-2 rounded-md border border-gray-300 text-gray-700 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Next page"
       >
         <ChevronRight className="w-5 h-5" />
@@ -257,7 +257,7 @@ export default function PostsPage() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900">All Posts</h1>
-                  <p className="text-gray-600 mt-2">
+                  <p className="text-gray-700 mt-2">
                     Discover amazing stories and insights from our community
                     {paginationInfo.totalPosts > 0 && (
                       <span className="ml-2 text-sm">
