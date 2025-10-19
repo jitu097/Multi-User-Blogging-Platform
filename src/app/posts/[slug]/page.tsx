@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import { useRouter } from "next/navigation";
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs';
 import { Navbar } from "@/components/Navbar";
@@ -8,9 +9,9 @@ import { Loader2, Calendar, Tag, ArrowLeft, Edit, Trash2, Clock, FileText, User 
 import { calculatePostStats, formatRelativeTime } from "@/lib/utils";
 import Link from "next/link";
 
-export default function PostPage({ params }: { params: { slug: string } }) {
+export default function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const router = useRouter();
-  const { slug } = params;
+  const { slug } = use(params);
 
   // Fetch the post by slug
   const { data: post, isLoading, error } = api.post.getBySlug.useQuery(slug);

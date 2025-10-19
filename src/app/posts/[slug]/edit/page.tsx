@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs';
 import { Navbar } from "@/components/Navbar";
@@ -9,9 +9,9 @@ import { api } from "@/trpc/react";
 import { Save, Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 
-export default function EditPostPage({ params }: { params: { slug: string } }) {
+export default function EditPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const router = useRouter();
-  const { slug } = params;
+  const { slug } = use(params);
   
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
